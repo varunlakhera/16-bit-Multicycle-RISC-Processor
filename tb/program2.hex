@@ -1,0 +1,21 @@
+// GENERATING THE FIBONACCI SEQUENCE
+921E    // Addr 00: LLI R1, 30      
+9414    // Addr 01: LLI R2, 20    
+9600    // Addr 02: LLI R3, 0       //Fib(0) = 0
+9801    // Addr 03: LLI R4, 1       //Fib(1) = 1
+9E01    // Addr 04: LLI R7, 1       
+B640    // Addr 05: SW R3, R1, 0    
+03C8    // Addr 06: ADD R1, R1, R7  
+B840    // Addr 07: SW R4, R1, 0    
+03C8    // Addr 08: ADD R1, R1, R7  
+9C00    // Addr 09: LLI R6, 0       // LOOP STARTS
+C584    // Addr 0A: BEQ R2, R6, 4   
+0728    // Addr 0B: ADD R5, R3, R4  // Fib(n) = Fib(n-1) + Fib(n-2)
+BA40    // Addr 0C: SW R5, R1, 0    //Fib(n) at mem[R1]
+0998    // Addr 0D: ADD R3, R4, R6   
+0BA0    // Addr 0E: ADD R4, R5, R6  
+03C8    // Addr 0F: ADD R1, R1, R7  
+25D0    // Addr 10: SUB R2, R2, R7  
+E1FC    // Addr 11: J -4            
+E000    // Addr 12: J 0             
+0000    // Addr 13: 0000            //unused memory....
