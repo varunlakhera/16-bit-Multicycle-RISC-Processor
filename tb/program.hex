@@ -1,20 +1,21 @@
-920F    // Addr 00: LLI R1, 15      ; Pointer to Array Start (Address 15)
-9414    // Addr 01: LLI R2, 20      ; Pointer to Array End (Address 20)
-9800    // Addr 02: LLI R4, 0       ; Initialize Running Sum (R4 = 0)
-9E01    // Addr 03: LLI R7, 1       ; Constant 1 for pointer increment
-C283    // Addr 04: BEQ R1, R2, 3   ; If R1 == R2, branch to SW (Target: 4 + 3*2 = 10)
-AA40    // Addr 05: LW R5, R1, 0    ; Load array element from memory into R5
-0960    // Addr 06: ADD R4, R4, R5  ; Add element to the running sum
-03C8    // Addr 07: ADD R1, R1, R7  ; Increment the array pointer
-E1FE    // Addr 08: J -2            ; Jump back to BEQ (Target: 8 + (-2)*2 = 4)
-0000    // Addr 09: ADD R0, R0, R0  ; NOP (Padding to align branch target)
-B819    // Addr 10: SW R4, R0, 25   ; Store final sum into memory at address 25
-E000    // Addr 11: J 0             ; HALT: Infinite loop so CPU doesn't execute data
-0000    // Addr 12: 0000            ; Unused memory
-0000    // Addr 13: 0000            ; Unused memory
-0000    // Addr 14: 0000            ; Unused memory
-0005    // Addr 15: 0005            ; DATA: Array[0] = 5
-000A    // Addr 16: 000A            ; DATA: Array[1] = 10
-000F    // Addr 17: 000F            ; DATA: Array[2] = 15
-0014    // Addr 18: 0014            ; DATA: Array[3] = 20
-0019    // Addr 19: 0019            ; DATA: Array[4] = 25
+//using loop to add the elements of an array
+920F    // Addr 00: LLI R1, 15      
+9414    // Addr 01: LLI R2, 20      
+9800    // Addr 02: LLI R4, 0       
+9E01    // Addr 03: LLI R7, 1       
+C283    // Addr 04: BEQ R1, R2, 3   
+AA40    // Addr 05: LW R5, R1, 0    
+0960    // Addr 06: ADD R4, R4, R5  
+03C8    // Addr 07: ADD R1, R1, R7  
+E1FE    // Addr 08: J -2            
+0000    // Addr 09: ADD R0, R0, R0   NOP
+B819    // Addr 10: SW R4, R0, 25   
+E000    // Addr 11: J 0             infinite loop
+0000    // Addr 12: 0000             Unused memory
+0000    // Addr 13: 0000             Unused memory
+0000    // Addr 14: 0000             Unused memory
+0005    // Addr 15: 0005             Array[0] = 5
+000A    // Addr 16: 000A             Array[1] = 10
+000F    // Addr 17: 000F             Array[2] = 15
+0014    // Addr 18: 0014             Array[3] = 20
+0019    // Addr 19: 0019             Array[4] = 25
