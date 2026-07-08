@@ -1,3 +1,31 @@
+# RISC CPU: Design and Implementation
+
+## 1 Introduction
+This CPU features a 16-bit datapath and an 8-register general-purpose register file (R0 to R7). It uses a Condition Code register to maintain Carry (C) and Zero (Z) flags. The architecture is implemented using a multicycle execution model managed by a finite state machine (FSM). Despite its simplicity, the CPU utilizes three primary instruction formats (R, I, and J types) across 14 instructions to solve complex logical and arithmetic workloads.
+
+## 2 Top-Level Architecture
+At the system level, the processor functions standalone and comprises three primary modules instantiated within `cpu_top.v`:
+* **Datapath (`datapath.v`)**: The module containing the Arithmetic Logic Unit (ALU), Register File, Program Counter, Instruction Counter and many multiplexers.
+* **Controller (`controller.v`)**: The 5 state FSM responsible for decoding instructions, resolving branches, and asserting control signals to route data through the datapath.
+* **Memory (`memory.v`)**: A 64KB unified storage module. It handling sequential writes and combinational reads for both program instructions and data.
+
+## 3 Instruction Set Architecture (ISA)
+The CPU operates purely on a 16-bit instruction format. Upon powering up (reset), the Program Counter (PC) is initialized to 0000H.
+
+### 3.1 Instruction Formats
+Instructions are divided into three architectural formats:
+* **R-Type**: Opcode [15:12] | RA [11:9] | RB [8:6] | RC [5:3] | Unused [2:0]
+* **I-Type**: Opcode [15:12] | RA [11:9] | RB [8:6] | Immediate [5:0]
+* **J-Type**: Opcode [15:12] | RA [11:9] | Immediate [8:0]
+
+### 3.2 Instruction Summary
+| Mnemonic | Encoding | Semantics |
+| :--- | :--- | :--- |
+| **ADD** | `0000 RA RB RC 000` | $RC = RA + RB$ |
+| **SUB** | `0010 RA RB RC 000` | $RC = RA - RB$ |
+| **MUL** | `0011 RA RB RC 000` | $RC = RA[3:0] \times RB[3:0]$ (Uses 4 LSBs) |
+| **ADI** | `0001 RA RB Imm6` | $RB = RA + \text{sign\_extend}(Imm6)$ |
+| **AND** | `0100 RA RB RC 000` | $RC = RA \text{ AND } RB$ |
 | **ORA** | `0101 RA RB RC 000` | $RC = RA \text{ OR } RB$ |
 | **IMP** | `0110 RA RB RC 000` | $RC = \text{NOT}(RA) \text{ OR } RB$ |
 | **LHI** | `1000 RA 0+Imm8` | $RA[15:8] = Imm8$, $RA[7:0] = 0$ |
