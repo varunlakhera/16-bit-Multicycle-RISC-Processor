@@ -21,21 +21,21 @@ Instructions are divided into three architectural formats:
 ### 3.2 Instruction Summary
 | Mnemonic | Encoding | Semantics |
 | :--- | :--- | :--- |
-| **ADD** | `0000 RA RB RC 000` | $RC = RA + RB$ |
-| **SUB** | `0010 RA RB RC 000` | $RC = RA - RB$ |
-| **MUL** | `0011 RA RB RC 000` | $RC = RA[3:0] \times RB[3:0]$ (Uses 4 LSBs) |
-| **ADI** | `0001 RA RB Imm6` | $RB = RA + \text{sign\_extend}(Imm6)$ |
-| **AND** | `0100 RA RB RC 000` | $RC = RA \text{ AND } RB$ |
-| **ORA** | `0101 RA RB RC 000` | $RC = RA \text{ OR } RB$ |
-| **IMP** | `0110 RA RB RC 000` | $RC = \text{NOT}(RA) \text{ OR } RB$ |
-| **LHI** | `1000 RA 0+Imm8` | $RA[15:8] = Imm8$, $RA[7:0] = 0$ |
-| **LLI** | `1001 RA 0+Imm8` | $RA[7:0] = Imm8$, $RA[15:8] = 0$ |
-| **LW** | `1010 RA RB Imm6` | $RA = \text{Memory}[RB + Imm6]$ |
-| **SW** | `1011 RA RB Imm6` | $\text{Memory}[RB + Imm6] = RA$ |
-| **BEQ** | `1100 RA RB Imm6` | If $RA == RB$, branch to $PC + Imm6 \times 2$ |
-| **JAL** | `1101 RA Imm9` | $RA = PC$, jump to $PC + Imm9 \times 2$ |
-| **JLR** | `1111 RA RB 000_000` | $RA = PC$, jump to address in RB |
-| **J** | `1110 RA Imm9` | Jump unconditionally to $PC + Imm9 \times 2$ |
+| **ADD** | `0000 RA RB RC 000` | `RC = RA + RB` |
+| **SUB** | `0010 RA RB RC 000` | `RC = RA - RB` |
+| **MUL** | `0011 RA RB RC 000` | `RC = RA[3:0] * RB[3:0]` (Uses 4 LSBs) |
+| **ADI** | `0001 RA RB Imm6` | `RB = RA + sign_extend(Imm6)` |
+| **AND** | `0100 RA RB RC 000` | `RC = RA AND RB` |
+| **ORA** | `0101 RA RB RC 000` | `RC = RA OR RB` |
+| **IMP** | `0110 RA RB RC 000` | `RC = NOT(RA) OR RB` |
+| **LHI** | `1000 RA 0+Imm8` | `RA[15:8] = Imm8`, `RA[7:0] = 0` |
+| **LLI** | `1001 RA 0+Imm8` | `RA[7:0] = Imm8`, `RA[15:8] = 0` |
+| **LW** | `1010 RA RB Imm6` | `RA = Memory[RB + Imm6]` |
+| **SW** | `1011 RA RB Imm6` | `Memory[RB + Imm6] = RA` |
+| **BEQ** | `1100 RA RB Imm6` | If `RA == RB`, branch to `PC + Imm6 * 2` |
+| **JAL** | `1101 RA Imm9` | `RA = PC`, jump to `PC + Imm9 * 2` |
+| **JLR** | `1111 RA RB 000_000` | `RA = PC`, jump to address in RB |
+| **J** | `1110 RA Imm9` | Jump unconditionally to `PC + Imm9 * 2` |
 
 ## 4 Control Module (FSM)
 The Controller has a 5 state multicycle FSM (FETCH, DECODE, EXECUTE, MEM ACCESS, WRITEBACK) to prevent structural hardware hazards:
